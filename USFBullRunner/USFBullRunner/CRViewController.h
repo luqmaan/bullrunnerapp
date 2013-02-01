@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <JSONKit/JSONKit.h>
 
 @interface CRViewController : UIViewController
+
+@property NSURLConnection *connection;
+@property NSMutableData *jsonData;
+@property NSDictionary *routes;
+
+- (void) fetchData;
 
 @end
