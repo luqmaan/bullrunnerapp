@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <NUI/NUISettings.h>
 
 #import "CRAppDelegate.h"
 
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
+        [NUISettings init];
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([CRAppDelegate class]));
     }
 }

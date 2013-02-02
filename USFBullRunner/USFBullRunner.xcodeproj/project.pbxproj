@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		17597922C37C431FA89E7752 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BED5467462B44D03846A839B /* libPods.a */; };
 		C15B36FC16BC074A003802EE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C15B36FB16BC074A003802EE /* CoreLocation.framework */; };
+		C1994BFF16BD7B1B00716491 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1994BFE16BD7B1B00716491 /* CoreImage.framework */; };
+		C1994C0116BD7B2000716491 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1994C0016BD7B2000716491 /* QuartzCore.framework */; };
 		C1DBC81416BB5E0C0011A89A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1DBC81316BB5E0C0011A89A /* UIKit.framework */; };
 		C1DBC81616BB5E0C0011A89A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1DBC81516BB5E0C0011A89A /* Foundation.framework */; };
 		C1DBC81816BB5E0C0011A89A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1DBC81716BB5E0C0011A89A /* CoreGraphics.framework */; };
@@ -26,6 +28,8 @@
 		562973A931864AA287CA8C20 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		BED5467462B44D03846A839B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C15B36FB16BC074A003802EE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		C1994BFE16BD7B1B00716491 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		C1994C0016BD7B2000716491 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C1DBC81016BB5E0C0011A89A /* USFBullRunner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = USFBullRunner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1DBC81316BB5E0C0011A89A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C1DBC81516BB5E0C0011A89A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -50,6 +54,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1994C0116BD7B2000716491 /* QuartzCore.framework in Frameworks */,
+				C1994BFF16BD7B1B00716491 /* CoreImage.framework in Frameworks */,
 				C15B36FC16BC074A003802EE /* CoreLocation.framework in Frameworks */,
 				C1DBC81416BB5E0C0011A89A /* UIKit.framework in Frameworks */,
 				C1DBC81616BB5E0C0011A89A /* Foundation.framework in Frameworks */,
@@ -64,7 +70,8 @@
 		C1DBC80716BB5E0C0011A89A = {
 			isa = PBXGroup;
 			children = (
-				C15B36FB16BC074A003802EE /* CoreLocation.framework */,
+				C1994C0016BD7B2000716491 /* QuartzCore.framework */,
+				C1994BFE16BD7B1B00716491 /* CoreImage.framework */,
 				C1DBC81916BB5E0C0011A89A /* USFBullRunner */,
 				C1DBC81216BB5E0C0011A89A /* Frameworks */,
 				C1DBC81116BB5E0C0011A89A /* Products */,
@@ -83,6 +90,7 @@
 		C1DBC81216BB5E0C0011A89A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C15B36FB16BC074A003802EE /* CoreLocation.framework */,
 				C1DBC81316BB5E0C0011A89A /* UIKit.framework */,
 				C1DBC81516BB5E0C0011A89A /* Foundation.framework */,
 				C1DBC81716BB5E0C0011A89A /* CoreGraphics.framework */,

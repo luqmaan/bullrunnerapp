@@ -7,11 +7,12 @@
 //
 
 #import "CRAppDelegate.h"
-
+#import <NUI/NUIAppearance.h>
 @implementation CRAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [NUIAppearance init];
     // Override point for customization after application launch.
     return YES;
 }
