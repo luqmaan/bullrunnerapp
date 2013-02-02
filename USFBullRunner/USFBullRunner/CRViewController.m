@@ -14,7 +14,7 @@
 
 @implementation CRViewController
 
-@synthesize nearbyConnection, jsonData, routes, locationManager, stops, locationsTableView;
+@synthesize nearbyConnection, nearbyData, routes, locationManager, stops, locationsTableView, uniqueStops;
 
 - (void)viewDidLoad
 {
@@ -34,33 +34,32 @@
 
 - (void)fetchNearbyStops
 {
-    if (jsonData == nil)
-        jsonData = [[NSMutableData alloc] init];
+    if (nearbyData == nil)
+        nearbyData = [[NSMutableData alloc] init];
     if (routes == nil)
         routes = [[NSDictionary alloc] init];
     
-//    NSLog(@"Location: %@", location);
     CLLocation *location = locationManager.location;
     
     if (location != nil)
     {
-        NSString *urlString = [NSString stringWithFormat:@"http://usfbullrunner.com/api/nearbystops/%f/%f?format=json", location.coordinate.latitude, location.coordinate.longitude];
-        
-        NSLog(@"URL String: %@", urlString);
+        NSString *urlString = [NSString stringWithFormat:@"http://usfbullrunner.com/api/nearbystops/%f/%f?format=json",
+                               location.coordinate.latitude,
+                               location.coordinate.longitude];
         NSURL *routesURL = [NSURL URLWithString:urlString];
-        
         NSURLRequest *req = [NSURLRequest requestWithURL:routesURL];
-        
-        nearbyConnection = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:YES];
+        nearbyConnection = [[NSURLConnection alloc] initWithRequest:req
+                                                           delegate:self
+                                                   startImmediately:YES];
+        NSLog(@"nearbyConnection: %@ %@", nearbyConnection, req);
     }
     
 }
 
 - (void)connection:(NSURLConnection *)conn didReceiveData:(NSData *)data
 {
-//    NSLog(@"Did receive data: %@", data);
-    [jsonData appendData:data];
-//    NSLog(@"JSONData is now: %@", jsonData);
+    if (conn == nearbyConnection)
+        [nearbyData appendData:data];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)conn
@@ -68,18 +67,18 @@
     
     if (conn == nearbyConnection)
     {
-        NSLog(@"Did finish loading");
+        NSLog(@"nearbyConnection Finished loading");
         
-        //    NSLog(@"JSON Data: %@", jsonData);
+        //    NSLog(@"JSON Data: %@", nearbyData);
         
         JSONDecoder *decoder = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionStrict];
         
         if (stops == nil)
             stops = [[NSArray alloc] init];
-        if (jsonData != nil && [jsonData length] > 0)
+        if (nearbyData != nil && [nearbyData length] > 0)
         {
             //        NSLog(@"Array of Stops: %@", stops);
-            stops = [decoder objectWithData:jsonData];
+            stops = [decoder objectWithData:nearbyData];
             [locationsTableView reloadData];
         }
     }
@@ -102,7 +101,6 @@
 
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    
     locationManager.distanceFilter = 100;
     
     [locationManager startUpdatingLocation];
@@ -153,21 +151,55 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (stops != nil)
     {
-        __block NSMutableSet *uniqueStops = [[NSMutableSet alloc] init];
+        // init the dictionary
+        if (uniqueStops == nil) {
+            uniqueStops = [[NSMutableDictionary alloc] init];
+            [uniqueStops setObject:[[NSMutableArray alloc] init]
+                            forKey:@"index"];
+        }
+        // loop through the stops returned by the api
         [stops enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            [uniqueStops addObject:[stops[idx] objectForKey:@"StopName"]];
+            
+            NSString *stopName = [stops[idx] objectForKey:@"StopName"];
+            NSNumber *numArrivals = [uniqueStops objectForKey:stopName];
+            
+            // if this stop hasn't been seen before add it to the uniqueStops dict
+            if (numArrivals == nil){
+                [uniqueStops setObject:[NSNumber numberWithInt:1]
+                                forKey:stopName];
+                NSMutableArray *index = [uniqueStops objectForKey:@"index"];
+                [index addObject:stopName];
+                [uniqueStops setObject:index forKey:@"index"];
+            }
+            // otherwise increment the number of buses arriving at the stop
+            else {
+                [uniqueStops setObject:[NSNumber numberWithInt:(numArrivals.integerValue + 1)]
+                                forKey:stopName];
+            }
+            
         }];
-        return [uniqueStops count];
+        return [uniqueStops count] - 1;
     }
-    else
-        return 0;
+    else return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return stops.count;
+    if (uniqueStops != nil)
+    {
+        NSString *stopName = [uniqueStops objectForKey:@"index"][section];
+        NSNumber *rows = [uniqueStops objectForKey:stopName];
+        return rows.integerValue;
+    }
+    else return 0;
 }
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"Nearby Locations";
+    if (uniqueStops != nil)
+    {
+        NSLog(@"Getting title, section: %d", section);
+        return [uniqueStops objectForKey:@"index"][section];
+    }
+    else
+        return @"Searching for nearby stops...";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

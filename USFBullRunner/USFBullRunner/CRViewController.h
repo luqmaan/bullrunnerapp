@@ -13,13 +13,22 @@
 @interface CRViewController : UITableViewController <CLLocationManagerDelegate>
 
 @property NSURLConnection *nearbyConnection;
-@property NSMutableData *jsonData;
+@property NSMutableData *nearbyData;
 @property NSDictionary *routes;
 @property CLLocationManager *locationManager;
 @property NSArray *stops;
+@property NSMutableDictionary *uniqueStops;
+/* used for the sections in the tableview.
+    uniqueStops: {
+        "index":["Maple","Holly","MSC"], // position in the uniqueStops dictionary, used for searchign with numberOfRowsInSection:(NSInteger)section
+        "Maple":3, // (number of rows in section, aka buses arriving to this stop)
+        "Holly":3,
+        "MSC":5
+     }
+ */
 
 @property (strong, nonatomic) IBOutlet UITableView *locationsTableView;
 
 - (void)fetchNearbyStops;
-- (void)fetchArrivalsForStop:(NSString *)stopId;
+//- (void)fetchArrivalsForStop:(NSString *)stopId;
 @end
