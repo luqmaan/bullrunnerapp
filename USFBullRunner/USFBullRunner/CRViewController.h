@@ -28,6 +28,7 @@
  */
 
 @property (strong, nonatomic) IBOutlet UITableView *locationsTableView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 
 - (void)fetchNearbyStops;
 //- (void)fetchArrivalsForStop:(NSString *)stopId;

@@ -145,6 +145,7 @@
 
 - (void)viewDidUnload {
     [self setLocationsTableView:nil];
+    [self setRefreshButton:nil];
     [super viewDidUnload];
 }
 
@@ -195,7 +196,6 @@
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (uniqueStops != nil)
     {
-        NSLog(@"Getting title, section: %d", section);
         return [uniqueStops objectForKey:@"index"][section];
     }
     else
@@ -214,8 +214,8 @@
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                          reuseIdentifier:CellIdentifier];
         }
 //        NSLog(@"indexPath: %d", indexPath.row);
     
@@ -227,9 +227,8 @@
         UILabel *arrivalTime = (UILabel *)[cell viewWithTag:1];
         
         routeName.text = [NSString stringWithFormat:@"%@", [item objectForKey:@"RouteName"]];
-        arrivalTime.text = [NSString stringWithFormat:@"%@", [item objectForKey:@"Distance"]];
+        arrivalTime.text = [NSString stringWithFormat:@"%@ min", [item objectForKey:@"Distance"]];
     
-       
         return  cell;
 //    }
     
