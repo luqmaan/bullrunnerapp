@@ -11,6 +11,8 @@
 		C15B36FC16BC074A003802EE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C15B36FB16BC074A003802EE /* CoreLocation.framework */; };
 		C1994BFF16BD7B1B00716491 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1994BFE16BD7B1B00716491 /* CoreImage.framework */; };
 		C1994C0116BD7B2000716491 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1994C0016BD7B2000716491 /* QuartzCore.framework */; };
+		C1994C0316BD7D3900716491 /* Theme.nss in Resources */ = {isa = PBXBuildFile; fileRef = C1994C0216BD7D3900716491 /* Theme.nss */; };
+		C1994C0516BD822200716491 /* Styles in Resources */ = {isa = PBXBuildFile; fileRef = C1994C0416BD822200716491 /* Styles */; };
 		C1DBC81416BB5E0C0011A89A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1DBC81316BB5E0C0011A89A /* UIKit.framework */; };
 		C1DBC81616BB5E0C0011A89A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1DBC81516BB5E0C0011A89A /* Foundation.framework */; };
 		C1DBC81816BB5E0C0011A89A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1DBC81716BB5E0C0011A89A /* CoreGraphics.framework */; };
@@ -30,6 +32,8 @@
 		C15B36FB16BC074A003802EE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C1994BFE16BD7B1B00716491 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		C1994C0016BD7B2000716491 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C1994C0216BD7D3900716491 /* Theme.nss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Theme.nss; sourceTree = "<group>"; };
+		C1994C0416BD822200716491 /* Styles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Styles; sourceTree = "<group>"; };
 		C1DBC81016BB5E0C0011A89A /* USFBullRunner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = USFBullRunner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1DBC81316BB5E0C0011A89A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C1DBC81516BB5E0C0011A89A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -70,8 +74,6 @@
 		C1DBC80716BB5E0C0011A89A = {
 			isa = PBXGroup;
 			children = (
-				C1994C0016BD7B2000716491 /* QuartzCore.framework */,
-				C1994BFE16BD7B1B00716491 /* CoreImage.framework */,
 				C1DBC81916BB5E0C0011A89A /* USFBullRunner */,
 				C1DBC81216BB5E0C0011A89A /* Frameworks */,
 				C1DBC81116BB5E0C0011A89A /* Products */,
@@ -90,6 +92,8 @@
 		C1DBC81216BB5E0C0011A89A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C1994C0016BD7B2000716491 /* QuartzCore.framework */,
+				C1994BFE16BD7B1B00716491 /* CoreImage.framework */,
 				C15B36FB16BC074A003802EE /* CoreLocation.framework */,
 				C1DBC81316BB5E0C0011A89A /* UIKit.framework */,
 				C1DBC81516BB5E0C0011A89A /* Foundation.framework */,
@@ -102,6 +106,7 @@
 		C1DBC81916BB5E0C0011A89A /* USFBullRunner */ = {
 			isa = PBXGroup;
 			children = (
+				C1994C0416BD822200716491 /* Styles */,
 				C1DBC83616BB5E8D0011A89A /* USFBullRunner.entitlements */,
 				C1DBC82216BB5E0C0011A89A /* CRAppDelegate.h */,
 				C1DBC82316BB5E0C0011A89A /* CRAppDelegate.m */,
@@ -109,6 +114,7 @@
 				C1DBC82E16BB5E0D0011A89A /* CRViewController.h */,
 				C1DBC82F16BB5E0D0011A89A /* CRViewController.m */,
 				C1DBC81A16BB5E0C0011A89A /* Supporting Files */,
+				C1994C0216BD7D3900716491 /* Theme.nss */,
 			);
 			path = USFBullRunner;
 			sourceTree = "<group>";
@@ -185,6 +191,8 @@
 				C1DBC82816BB5E0D0011A89A /* Default@2x.png in Resources */,
 				C1DBC82A16BB5E0D0011A89A /* Default-568h@2x.png in Resources */,
 				C1DBC82D16BB5E0D0011A89A /* MainStoryboard.storyboard in Resources */,
+				C1994C0316BD7D3900716491 /* Theme.nss in Resources */,
+				C1994C0516BD822200716491 /* Styles in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
