@@ -8,13 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import <JSONKit/JSONKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface CRViewController : UIViewController
+@interface CRViewController : UITableViewController <CLLocationManagerDelegate>
 
-@property NSURLConnection *connection;
+@property NSURLConnection *nearbyConnection;
 @property NSMutableData *jsonData;
 @property NSDictionary *routes;
+@property CLLocationManager *locationManager;
+@property NSArray *stops;
 
-- (void) fetchData;
+@property (strong, nonatomic) IBOutlet UITableView *locationsTableView;
 
+- (void)fetchNearbyStops;
+- (void)fetchArrivalsForStop:(NSString *)stopId;
 @end
