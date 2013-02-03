@@ -32,6 +32,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)resfreshFeed:(id)sender {
+//    [self fetchNearbyStops];
+}
+
 - (void)fetchNearbyStops
 {
     if (nearbyData == nil)
@@ -247,7 +251,10 @@
     
         UILabel *routeName = (UILabel *)[cell viewWithTag:0];
         UILabel *arrivalTime = (UILabel *)[cell viewWithTag:1];
-        
+    
+        routeName.nuiClass = @"routeName";
+        arrivalTime.nuiClass = @"arrivalTime";
+    
         routeName.text = [NSString stringWithFormat:@"%@", [item objectForKey:@"RouteName"]];
         arrivalTime.text = [NSString stringWithFormat:@"%@ min", [item objectForKey:@"Distance"]];
     

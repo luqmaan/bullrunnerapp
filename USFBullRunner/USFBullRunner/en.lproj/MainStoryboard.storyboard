@@ -61,11 +61,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="BullRunner" id="gmr-Ph-QRi">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="azj-ql-d1O"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="azj-ql-d1O">
+                            <connections>
+                                <action selector="resfreshFeed:" destination="a7t-bi-hYI" id="Vje-ex-V0A"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="locationsTableView" destination="8KK-YQ-3Pz" id="4fM-eo-c1f"/>
-                        <outlet property="refreshButton" destination="azj-ql-d1O" id="XDX-Cc-j72"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sz3-7R-qsK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -73,6 +76,15 @@
             <point key="canvasLocation" x="330" y="-334"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="CRViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CRViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="locationsTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="refreshButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
