@@ -20,7 +20,7 @@
             </objects>
             <point key="canvasLocation" x="-102" y="-334"/>
         </scene>
-        <!--View Controller - BullRunner-->
+        <!--View Controller - lé BullRunner-->
         <scene sceneID="2SK-K6-dBb">
             <objects>
                 <tableViewController storyboardIdentifier="locationsView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="a7t-bi-hYI" customClass="CRViewController" sceneMemberID="viewController">
@@ -60,15 +60,10 @@
                             <outlet property="delegate" destination="a7t-bi-hYI" id="xBk-cZ-dsC"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="BullRunner" id="gmr-Ph-QRi">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="azj-ql-d1O">
-                            <connections>
-                                <action selector="resfreshFeed:" destination="a7t-bi-hYI" id="Vje-ex-V0A"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="lé BullRunner" id="gmr-Ph-QRi"/>
                     <connections>
                         <outlet property="locationsTableView" destination="8KK-YQ-3Pz" id="4fM-eo-c1f"/>
+                        <outlet property="navBar" destination="gmr-Ph-QRi" id="E4c-95-7zy"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sz3-7R-qsK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -81,7 +76,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CRViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="locationsTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="refreshButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="navBar" candidateClass="UINavigationItem"/>
             </relationships>
         </class>
     </classes>

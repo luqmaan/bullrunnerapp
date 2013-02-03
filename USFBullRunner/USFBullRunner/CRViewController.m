@@ -14,13 +14,17 @@
 
 @implementation CRViewController
 
-@synthesize nearbyConnection, nearbyData, routes, locationManager, stops, locationsTableView, uniqueStops;
+@synthesize nearbyConnection, nearbyData, routes, locationManager, stops, locationsTableView, uniqueStops, navBar,refreshBarBtn, refreshBtn;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+//    CRArrivalsForStop *arrivalForStop = [[CRArrivalsForStop alloc] init];
+    
+    
+    [self initViews];
     [self startStandardUpdates];
     [self fetchNearbyStops];
     
@@ -32,13 +36,110 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)resfreshFeed:(id)sender {
-//    [self fetchNearbyStops];
+
+- (void)initViews
+{
+    refreshBtn = [[UIButton alloc] initWithFrame:CGRectMake(0,0,22,22)];
+    UIImage *refreshImg = [UIImage imageNamed:@"Styles/UIButtonBarRefresh@2x_square.png"];
+    [refreshBtn setImage:refreshImg forState:UIControlStateNormal];
+    [refreshBtn addTarget:self action:@selector(fetchNearbyStops) forControlEvents:UIControlEventTouchDown];
+    
+    
+    refreshBarBtn = [[UIBarButtonItem alloc] initWithCustomView:refreshBtn];
+    [navBar setRightBarButtonItem:refreshBarBtn];
+}
+
+- (void)startRotating {
+    
+    // http://stackoverflow.com/questions/3431776/how-do-you-rotate-a-uiimage-360
+    
+    NSLog(@"Start rotation");
+    
+    CALayer *layer = refreshBtn.layer;
+    
+    CFTimeInterval pausedTime = [layer timeOffset];
+    layer.speed = 1.0;
+    layer.timeOffset = 0.0;
+    layer.beginTime = 0.0;
+    CFTimeInterval timeSincePause = [layer convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
+    layer.beginTime = timeSincePause;
+    
+    CABasicAnimation *fullRotation;
+    fullRotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+    fullRotation.fromValue = [NSNumber numberWithFloat:0];
+    fullRotation.toValue = [NSNumber numberWithFloat:((360*M_PI)/180)];
+    fullRotation.duration = 1.5f;
+    fullRotation.repeatCount = MAXFLOAT;
+    fullRotation.fillMode = kCAFillModeForwards;
+    fullRotation.autoreverses = NO;
+    
+    [layer addAnimation:fullRotation forKey:@"360"];
+    
+    [layer animationForKey:@"360"];
+
+}
+
+- (void)stopRotating {
+    
+    NSLog(@"Stop rotation");
+    CALayer *layer = refreshBtn.layer;
+//    [self pauseLayer:layer];
+    
+//    NSLog(@"%@ %@ %f %@ %f", NSStringFromCGRect(layer.bounds), NSStringFromCGPoint(layer.position), layer.zPosition, NSStringFromCGPoint(layer.anchorPoint), layer.anchorPointZ);
+    
+//    NSLog(@"%@", NSStringFromCGAffineTransform(CATransform3DGetAffineTransform(layer.transform)));
+    
+//    CABasicAnimation *finishRotation;
+//    finishRotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+//    finishRotation.fromValue = [layer valueForKeyPath:@"transform"];
+//    
+//    NSLog(@"%f %f %f %f", layer.transform.m11, layer.transform.m12, layer.transform.m13, layer.transform.m14);
+//    NSLog(@"%f %f %f %f", layer.transform.m21, layer.transform.m22, layer.transform.m23, layer.transform.m24);
+//    NSLog(@"%f %f %f %f", layer.transform.m31, layer.transform.m32, layer.transform.m33, layer.transform.m34);
+//    NSLog(@"%f %f %f %f", layer.transform.m41, layer.transform.m42, layer.transform.m43, layer.transform.m44);
+    
+//    finishRotation.toValue = [NSNumber numberWithFloat:0];
+//    finishRotation.duration = 1.0f;
+//    finishRotation.repeatCount = 0;
+//    finishRotation.fillMode = kCAFillModeForwards;
+//    finishRotation.autoreverses = NO;
+//    
+//    [layer addAnimation:finishRotation forKey:@"finish"];
+    
+//    [layer animationForKey:@"finish"];
+    
+//    [self resumeLayer:layer];
+    [layer removeAnimationForKey:@"360"];
+    
+    
+}
+
+-(void)pauseLayer:(CALayer*)layer
+{
+    // http://stackoverflow.com/questions/2306870/is-there-a-way-to-pause-a-cabasicanimation
+    
+    CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
+    layer.speed = 0.0;
+    layer.timeOffset = pausedTime;
+}
+-(void)resumeLayer:(CALayer*)layer
+{
+    CFTimeInterval pausedTime = [layer timeOffset];
+    layer.speed = 1.0;
+    layer.timeOffset = 0.0;
+    layer.beginTime = 0.0;
+    CFTimeInterval timeSincePause = [layer convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
+    layer.beginTime = timeSincePause;
 }
 
 - (void)fetchNearbyStops
 {
-    if (nearbyData == nil)
+    [self startRotating];
+    
+    // reset the data
+    routes = nil, stops = nil, nearbyData = nil, uniqueStops = nil;
+    
+    if (routes == nil)
         nearbyData = [[NSMutableData alloc] init];
     if (routes == nil)
         routes = [[NSDictionary alloc] init];
@@ -84,7 +185,9 @@
             //        NSLog(@"Array of Stops: %@", stops);
             stops = [decoder objectWithData:nearbyData];
             [locationsTableView reloadData];
+            [self stopRotating];
         }
+
     }
     
 
@@ -149,7 +252,7 @@
 
 - (void)viewDidUnload {
     [self setLocationsTableView:nil];
-    [self setRefreshButton:nil];
+    [self setNavBar:nil];
     [super viewDidUnload];
 }
 
@@ -208,10 +311,7 @@
     CGRect sectionViewRect = [[UIScreen mainScreen] bounds];
     sectionViewRect.size.height = 40;
     CGRect labelRect = CGRectMake(12, 0, sectionViewRect.size.width, 40);
-    
-    NSLog(@"sectionViewRect: %@", NSStringFromCGRect(sectionViewRect));
-    NSLog(@"labelRect: %@", NSStringFromCGRect(labelRect));
-    
+        
     UIView *sectionView = [[UIView alloc] initWithFrame:sectionViewRect];
     UILabel *label = [[UILabel alloc] initWithFrame:labelRect];
     
@@ -227,7 +327,6 @@
     [sectionView.layer addSublayer:bottomBorder];
     
     UIColor *bg = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Styles/black_lozenge.png"]];
-    
     [sectionView setBackgroundColor:bg];
     
     sectionView.nuiClass = @"sectionTitleView";
@@ -249,37 +348,27 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    static NSString *CellIdentifier = @"busLocationCell";
     
-    
-//    if (stops != nil)
-//    {
-    
-    
-        static NSString *CellIdentifier = @"busLocationCell";
-        
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                          reuseIdentifier:CellIdentifier];
-        }
-//        NSLog(@"indexPath: %d", indexPath.row);
-    
-        NSDictionary *item = [stops objectAtIndex:indexPath.row];
-//        NSString *stopName = [item objectForKey:@"StopName"];
-//        NSLog(@"Stop Name: %@", stopName);
-    
-        UILabel *routeName = (UILabel *)[cell viewWithTag:0];
-        UILabel *arrivalTime = (UILabel *)[cell viewWithTag:1];
-    
-        routeName.nuiClass = @"routeName";
-        arrivalTime.nuiClass = @"arrivalTime";
-    
-        routeName.text = [NSString stringWithFormat:@"%@", [item objectForKey:@"RouteName"]];
-        arrivalTime.text = [NSString stringWithFormat:@"%@ min", [item objectForKey:@"Distance"]];
-    
-        return  cell;
-//    }
-    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                      reuseIdentifier:CellIdentifier];
+    }
+
+    NSDictionary *item = [stops objectAtIndex:indexPath.row];
+
+    UILabel *routeName = (UILabel *)[cell viewWithTag:0];
+    UILabel *arrivalTime = (UILabel *)[cell viewWithTag:1];
+
+    routeName.nuiClass = @"routeName";
+    arrivalTime.nuiClass = @"arrivalTime";
+
+    routeName.text = [NSString stringWithFormat:@"%@", [item objectForKey:@"RouteName"]];
+    arrivalTime.text = [NSString stringWithFormat:@"%@ min", [item objectForKey:@"Distance"]];
+
+    return  cell;
+   
 }
 
 

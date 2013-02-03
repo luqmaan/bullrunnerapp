@@ -1,7 +1,7 @@
 @primaryBGColor: #00A479;
 
 NavigationBar {
-    font-name: GillSans;
+    font-name: HelveticaNeue-Light;
     font-size: 22;
     background-color-top: @primaryBGColor;
     background-color-bottom: #03916C;
