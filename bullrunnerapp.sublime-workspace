@@ -1,0 +1,340 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"byte_",
+				"byte_value	(global, instance)"
+			],
+			[
+				"byt",
+				"bytes	(builtin, class)"
+			],
+			[
+				"render",
+				"render_template	(imported, instance)"
+			],
+			[
+				"create_",
+				"create_tables	(global, function)"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "Build & Run",
+	"command_palette":
+	{
+		"height": 87.0,
+		"selected_items":
+		[
+			[
+				"run",
+				"SublimeREPL: Python - RUN current file"
+			],
+			[
+				"python",
+				"SublimeREPL: Python - IPython"
+			],
+			[
+				"wrap",
+				"Word Wrap: Toggle"
+			],
+			[
+				"ipyth",
+				"SublimeREPL: Python - IPython"
+			],
+			[
+				"ipython",
+				"SublimeREPL: Python - IPython"
+			],
+			[
+				"html",
+				"Tidy HTML"
+			],
+			[
+				"css",
+				"Tidy CSS (Low Compression)"
+			],
+			[
+				"th",
+				"Tidy HTML"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"ejs",
+				"Set Syntax: EJS"
+			],
+			[
+				"tidy",
+				"Tidy CSS (Low Compression)"
+			],
+			[
+				"csst",
+				"Tidy CSS (Highest Compression)"
+			],
+			[
+				"brows",
+				"Preferences: Browse Packages"
+			],
+			[
+				"print",
+				"Print to HTML: print as HTML via browser"
+			],
+			[
+				"print ",
+				"Print to HTML: print as HTML via browser"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"syntaxobj",
+				"Set Syntax: Objective-C"
+			],
+			[
+				"synt",
+				"Set Syntax: YAML"
+			],
+			[
+				"form",
+				"Format: Javascript"
+			],
+			[
+				"format",
+				"Format: Javascript"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 139.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/lolcat/dev/bullrunnerapp/bullrunnerapp.sublime-project",
+		"/Users/lolcat/dev/_usf/advanced-python/fun/nachtigal/a.pt",
+		"/Users/lolcat/dev/_usf/advanced-python/fun/tkinter.py",
+		"/Users/lolcat/dev/_usf/advanced-python/textbook_code/ch13/alt/metaIntro.py",
+		"/Users/lolcat/dev/_usf/advanced-python/hw/9.3.py",
+		"/Users/lolcat/dev/_usf/advanced-python/hw/9.1.py",
+		"/Users/lolcat/dev/_usf/advanced-python/hw/8.5.py",
+		"/Users/lolcat/dev/_usf/advanced-python/hw/8.7.py",
+		"/Users/lolcat/dev/_usf/advanced-python/hw/9.19.py",
+		"/Users/lolcat/dev/_usf/advanced-python/hw/curses_gist1.py",
+		"/Users/lolcat/dev/_usf/advanced-python/hw/9.19.txt",
+		"/Users/lolcat/dev/_usf/advanced-python/textbook_code/ch13/roundFloat2.py",
+		"/Users/lolcat/dev/_usf/advanced-python/hw/9.11/main.py",
+		"/Users/lolcat/Downloads/dhgamache-Skeleton-7ab6820/index.html",
+		"/Users/lolcat/dev/_usf/advanced-python/hw/9.11/templates/show_entries.html",
+		"/Users/lolcat/dev/_usf/advanced-python/hw/9.11/static/style.css",
+		"/Users/lolcat/dev/_usf/advanced-python/hw/9.11/templates/layout.html",
+		"/Users/lolcat/dev/_usf/advanced-python/hw/9.11/run.py",
+		"/Users/lolcat/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/lolcat/dev/_usf/advanced-python/hw/9.11/templates/login.html",
+		"/Users/lolcat/dev/_usf/advanced-python/hw/9.11/flask/templates/show_entries.html",
+		"/Users/lolcat/dev/_usf/advanced-python/hw/9.11/init_db.py",
+		"/Users/lolcat/dev/_usf/advanced-python/hw/9.11/flask/init_db.py",
+		"/Users/lolcat/dev/_usf/advanced-python/hw/9.11/abc.py",
+		"/Users/lolcat/dev/_usf/advanced-python/9.11/main.py",
+		"/Users/lolcat/dev/_usf/advanced-python/9.11/flask/schema.sql",
+		"/Users/lolcat/dev/_usf/advanced-python/911/main.py",
+		"/Users/lolcat/dev/usfgithub/advanced-python/hw/main.pty",
+		"/Users/lolcat/Documents/Physics/Hw1 prob6.txt",
+		"/Users/lolcat/Documents/Physics/Hw1 prob3.txt",
+		"/Users/lolcat/Documents/Physics/Hw1 prob7.txt",
+		"/Users/lolcat/Documents/Physics/Hw1 prob8.txt",
+		"/Users/lolcat/Documents/Physics/Hw1 prob9mine.txt",
+		"/Users/lolcat/Documents/Physics/Hw1 prob1.txt",
+		"/Users/lolcat/Documents/Physics/Hw1 prob4.txt",
+		"/Users/lolcat/Documents/Physics/Hw1 prob5.txt",
+		"/Users/lolcat/Documents/Physics/Hw1 prob9.txt",
+		"/Users/lolcat/Documents/Physics/Hw1 prob2.txt",
+		"/Users/lolcat/Documents/Data Structures/hw1 - lists.txt",
+		"/Users/lolcat/Library/Application Support/Sublime Text 2/Packages/User/Python.sublime-build",
+		"/Users/lolcat/dev/SchemaCreator/index.html",
+		"/Users/lolcat/dev/SchemaCreator/raphtest.js"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"\\n",
+			"bytes",
+			"print",
+			"printPrime\\([0-9]",
+			"202",
+			"%",
+			"buttons",
+			"<div>",
+			"ast",
+			"column",
+			"columns",
+			"container",
+			"stylesheets",
+			"show_entries.html",
+			"show_en",
+			"entry",
+			"login",
+			"reloader",
+			"939",
+			"248",
+			"][a-z \\t]",
+			"][a-z ]",
+			"180",
+			"1.7",
+			"68",
+			"27",
+			"\\n",
+			"move",
+			"console.l",
+			"dbl"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 36.0
+	},
+	"input":
+	{
+		"height": 37.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 136.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"main.py",
+				"textbook_code/ch13/alt/metaIntro.py"
+			],
+			[
+				".txt",
+				"hw/9.19.txt"
+			],
+			[
+				"run",
+				"textbook_code/ch13/roundFloat2.py"
+			],
+			[
+				"9.19",
+				"hw/9.19.txt"
+			],
+			[
+				"main",
+				"main.py"
+			],
+			[
+				".css",
+				"static/base.css"
+			],
+			[
+				"lay",
+				"templates/layout.html"
+			],
+			[
+				"app",
+				"app.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 202.0,
+	"status_bar_visible": true
+}

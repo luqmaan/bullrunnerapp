@@ -1,0 +1,10 @@
+{
+	"folders": [{
+		"path": "."
+	}],
+	"build_systems": [{
+		"name": "Build & Run",
+		"working_dir": "${project_path:${folder}}/USFBullRunner",
+		"cmd": ["xcodebuild", "-workspace", "USFBullRunner.xcworkspace"]
+	}]
+}
