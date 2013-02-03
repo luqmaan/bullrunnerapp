@@ -12,21 +12,21 @@ BarButton {
 }
 
 sectionTitleView {
-    background-color: #E0E0E0;
-    border-width: 1;
-    border-color: #B5D7CA;
-    corner-radius: 0;
 }
 sectionTitleLabel {
-    font-name: GillSans;
+    font-name: Helvetica-Bold;
     font-color: #00BA83;
-    font-size: 15;
+    font-size: 17;
+    text-shadow-color: #000000;
+    text-shadow-offset: 0,-1;
 }
 TableCell {
     background-color: #F4FAF8;
+    font-name: GillSans-Bold;
 }
 routeName {
-    font-color: #6A7F76; 
+    font-color: #6A7F76;
+    font-name: GillSans-Bold; 
 }
 arrivalTime {
     font-color: red;

@@ -197,19 +197,38 @@
     }
     else return 0;
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return (CGFloat) 40;
+}
+
 //-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     CGRect sectionViewRect = [[UIScreen mainScreen] bounds];
+    sectionViewRect.size.height = 40;
+    CGRect labelRect = CGRectMake(12, 0, sectionViewRect.size.width, 40);
     
-    sectionViewRect.size.height = 25;
-    
-    CGRect labelRect = sectionViewRect;
-    labelRect.origin.x = 7;
-    labelRect.origin.y -= 2;
+    NSLog(@"sectionViewRect: %@", NSStringFromCGRect(sectionViewRect));
+    NSLog(@"labelRect: %@", NSStringFromCGRect(labelRect));
     
     UIView *sectionView = [[UIView alloc] initWithFrame:sectionViewRect];
     UILabel *label = [[UILabel alloc] initWithFrame:labelRect];
+    
+    CALayer *topBorder = [CALayer layer];
+    topBorder.frame = CGRectMake(0.0f, 0.0f, sectionView.frame.size.width, 1.0f);
+    topBorder.backgroundColor = [UIColor colorWithRed:0.000 green:0.498 blue:0.345 alpha:1].CGColor;
+    
+    CALayer *bottomBorder = [CALayer layer];
+    bottomBorder.frame = CGRectMake(0.0f, sectionViewRect.size.height - 1.0f, sectionViewRect.size.width, 1.0f);
+    bottomBorder.backgroundColor = [UIColor colorWithRed:0.000 green:0.314 blue:0.212 alpha:1].CGColor;
+    
+    [sectionView.layer addSublayer:topBorder];
+    [sectionView.layer addSublayer:bottomBorder];
+    
+    UIColor *bg = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Styles/black_lozenge.png"]];
+    
+    [sectionView setBackgroundColor:bg];
     
     sectionView.nuiClass = @"sectionTitleView";
     label.nuiClass = @"sectionTitleLabel";

@@ -11,6 +11,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <NUI/UIView+NUI.h>
 #import <NUI/UILabel+NUI.h>
+#import <QuartzCore/QuartzCore.h> 
 
 @interface CRViewController : UITableViewController <CLLocationManagerDelegate>
 
