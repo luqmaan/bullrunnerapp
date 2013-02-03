@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <NUI/NUISettings.h>
 
+
 #import "CRAppDelegate.h"
 
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
-        [NUISettings initWithStylesheet:@"Theme"];
+        [NUISettings initWithStylesheet:@"Styles/Style"];
+//        [NUISettings setAutoUpdatePath:@"/Users/lolcat/dev/bullrunnerapp/USFBullRunner/USFBullRunner/Styles/Style.nss"];
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([CRAppDelegate class]));
     }
 }

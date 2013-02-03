@@ -193,13 +193,35 @@
     }
     else return 0;
 }
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    CGRect sectionViewRect = [[UIScreen mainScreen] bounds];
+    
+    sectionViewRect.size.height = 25;
+    
+    CGRect labelRect = sectionViewRect;
+    labelRect.origin.x = 7;
+    labelRect.origin.y -= 2;
+    
+    UIView *sectionView = [[UIView alloc] initWithFrame:sectionViewRect];
+    UILabel *label = [[UILabel alloc] initWithFrame:labelRect];
+    
+    sectionView.nuiClass = @"sectionTitleView";
+    label.nuiClass = @"sectionTitleLabel";
+    
     if (uniqueStops != nil)
     {
-        return [uniqueStops objectForKey:@"index"][section];
+        label.text = [uniqueStops objectForKey:@"index"][section];
     }
     else
-        return @"Searching for nearby stops...";
+    {        
+        label.text = @"Searching for nearby stops...";
+    }
+    
+    [sectionView addSubview:label];
+    
+    return sectionView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

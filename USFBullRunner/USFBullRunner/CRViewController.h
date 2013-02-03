@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <JSONKit/JSONKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <NUI/UIView+NUI.h>
+#import <NUI/UILabel+NUI.h>
 
 @interface CRViewController : UITableViewController <CLLocationManagerDelegate>
 
