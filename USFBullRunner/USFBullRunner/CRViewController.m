@@ -160,9 +160,11 @@
 
 - (void) fetchArrivalTimes
 {
+    int i = 0;
     
     for (NSMutableDictionary * stop in stops)
     {
+        i++;
         
         NSString *urlString = [NSString stringWithFormat:@"http://usfbullrunner.com/Route/%@/Stop/%@/Arrivals",
                                [stop objectForKey:@"RouteId"], [stop objectForKey:@"StopId"]];
@@ -176,35 +178,27 @@
         
         JSONDecoder *decoder = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionStrict];
         
-        NSOperationQueue *arrivalsQueue = [[NSOperationQueue alloc] init];
-        
-        [NSURLConnection sendAsynchronousRequest:urlRequest
-                                           queue:arrivalsQueue
-                               completionHandler:^(NSURLResponse *res, NSData *data, NSError *error) {
-                                   if([data length] > 0 && error == nil) {
+        NSError *error;
+        NSURLResponse *response;
+        NSData *data = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
 
-                                       NSLog(@"res: %@ error: %@", res, error);
-                                       NSMutableArray *arrivals = [decoder mutableObjectWithData:data];
-                                       NSLog(@"decoded");
-                                       [stop setValue:arrivals forKey:@"Arrivals"];
-                                       NSLog(@"done set value");
-                                       NSLog(@"Arrivals: %@", arrivals);
-                                       [locationsTableView reloadData];
+       if([data length] > 0 && error == nil) {
 
-                                   }
-                                   else if ([data length] == 0 && error == nil)
-                                   {
-                                       NSLog(@"Nothing was downloaded.");
-                                   }
-                                   else if (error != nil){
-                                       NSLog(@"Error = %@", error);
-                                   }
+           NSMutableArray *arrivals = [decoder mutableObjectWithData:data];
+           [stop setValue:arrivals forKey:@"Arrivals"];           
 
-                               }];
+       }
+       else if ([data length] == 0 && error == nil)
+       {
+           NSLog(@"Nothing was downloaded.");
+       }
+       else if (error != nil){
+           NSLog(@"Error = %@", error);
+       }
+
     }
     
-    
-    NSLog(@"done reloaded data");
+    [locationsTableView reloadData];
     
 }
 
@@ -418,7 +412,7 @@
     {
         if (arrival != nil){
             NSLog(@"Arrival: %@", [arrival objectForKey:@"Minutes"]);
-            arrivalString = [NSString stringWithFormat:@"%@ %@minutes", arrivalString, [arrival objectForKey:@"Minutes"]];
+            arrivalString = [NSString stringWithFormat:@"%@ %@", arrivalString, [arrival objectForKey:@"Minutes"]];
         }
     }
     
