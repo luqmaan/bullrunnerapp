@@ -185,7 +185,7 @@
        if([data length] > 0 && error == nil) {
 
            NSMutableArray *arrivals = [decoder mutableObjectWithData:data];
-           [stop setValue:arrivals forKey:@"Arrivals"];           
+           [stop setValue:arrivals forKey:@"Arrivals"];
 
        }
        else if ([data length] == 0 && error == nil)
@@ -197,8 +197,10 @@
        }
 
     }
-    
+//    NSLog(@"stops: %@", stops);
+
     [locationsTableView reloadData];
+    [self stopRotating];
     
 }
 
@@ -226,8 +228,6 @@
             //        NSLog(@"Array of Stops: %@", stops);
             stops = [decoder mutableObjectWithData:nearbyData];
             
-            [locationsTableView reloadData];
-            [self stopRotating];
             [self fetchArrivalTimes];
         }
 
@@ -301,6 +301,7 @@
     if (stops != nil)
     {
         // init the dictionary
+        uniqueStops = nil; // prevent duplicate cells each time the tableisreloaded
         if (uniqueStops == nil) {
             uniqueStops = [[NSMutableDictionary alloc] init];
             [uniqueStops setObject:[[NSMutableArray alloc] init]
@@ -335,8 +336,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (uniqueStops != nil)
     {
-        NSString *stopName = [uniqueStops objectForKey:@"index"][section];
-        NSNumber *rows = [uniqueStops objectForKey:stopName];
+        NSString *index = [uniqueStops objectForKey:@"index"][section];
+        NSNumber *rows = [uniqueStops objectForKey:index];
+        
+//        NSLog(@"numberOfRowsInSection, uniqueStops: %@", uniqueStops);
         return rows.integerValue;
     }
     else return 0;
@@ -387,6 +390,14 @@
     return sectionView;
 }
 
+- (NSDictionary *)itemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+//    NSLog(@"stopsLength:%lu indexPath.row:%ld indexPath.section: %ld", (unsigned long)[stops count], (long)indexPath.row, (long)indexPath.section);
+    
+    return [[NSDictionary alloc] init];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"busLocationCell";
@@ -397,28 +408,50 @@
                                       reuseIdentifier:CellIdentifier];
     }
 
-    NSDictionary *item = [stops objectAtIndex:indexPath.row];
+
+    NSDictionary *item = [self itemAtIndexPath:indexPath];
+    NSLog(@"item: %@", item);
 
     UILabel *routeName = (UILabel *)[cell viewWithTag:0];
-    UILabel *arrivalTime = (UILabel *)[cell viewWithTag:1];
-
+    
     routeName.nuiClass = @"routeName";
-    arrivalTime.nuiClass = @"arrivalTime";
 
     routeName.text = [NSString stringWithFormat:@"%@", [item objectForKey:@"RouteName"]];
     
-    NSString *arrivalString = @"";
+    int numLabels = 0;
+    
     for (NSDictionary *arrival in [[item objectForKey:@"Arrivals"] objectForKey:@"Predictions"])
     {
-        if (arrival != nil){
-            NSLog(@"Arrival: %@", [arrival objectForKey:@"Minutes"]);
-            arrivalString = [NSString stringWithFormat:@"%@ %@", arrivalString, [arrival objectForKey:@"Minutes"]];
+        if (arrival != nil)
+        {
+            [cell addSubview:[self labelForTime:[arrival objectForKey:@"Minutes"]
+                                    AndPosition:numLabels]];
+            numLabels++;
         }
     }
     
-    arrivalTime.text = arrivalString;
     return  cell;
    
+}
+
+- (UILabel *)labelForTime:(NSString *)time AndPosition:(int)pos
+{
+    CGFloat x = [[UIScreen mainScreen] bounds].size.width - ( 58 * (pos + 1));
+    
+    UILabel *arrivalTime = [[UILabel alloc]initWithFrame:CGRectMake(x,8,50,30)];
+    
+    arrivalTime.textColor = [UIColor colorWithRed:0.133 green:0.133 blue:0.133 alpha:1];
+    arrivalTime.backgroundColor = [UIColor colorWithRed:0.553 green:0.851 blue:0.749 alpha:1];
+    arrivalTime.layer.cornerRadius = 8;
+    arrivalTime.textAlignment = UITextAlignmentCenter;
+    arrivalTime.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
+    
+    NSString *arrivalString = [NSString stringWithFormat:@"%@m", time];
+    arrivalTime.text = arrivalString;
+    
+    NSLog(@"ArrivalTimeFrame: %@", NSStringFromCGRect(arrivalTime.frame));
+    
+    return arrivalTime;
 }
 
 
