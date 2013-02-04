@@ -14,15 +14,12 @@
 
 @implementation CRViewController
 
-@synthesize nearbyConnection, nearbyData, routes, locationManager, stops, locationsTableView, uniqueStops, navBar,refreshBarBtn, refreshBtn;
+@synthesize nearbyConnection, nearbyData, routes, locationManager, stops, locationsTableView, uniqueStops, navBar,refreshBarBtn, refreshBtn, arrivalsConnection;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
-//    CRArrivalsForStop *arrivalForStop = [[CRArrivalsForStop alloc] init];
-    
     
     [self initViews];
     [self startStandardUpdates];
@@ -161,6 +158,56 @@
     
 }
 
+- (void) fetchArrivalTimes
+{
+    
+    for (NSMutableDictionary * stop in stops)
+    {
+        
+        NSString *urlString = [NSString stringWithFormat:@"http://usfbullrunner.com/Route/%@/Stop/%@/Arrivals",
+                               [stop objectForKey:@"RouteId"], [stop objectForKey:@"StopId"]];
+
+        NSURL *url = [NSURL URLWithString:urlString];
+        NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:url
+                                                         cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                     timeoutInterval:300];
+        
+        NSLog(@"%@", urlString);
+        
+        JSONDecoder *decoder = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionStrict];
+        
+        NSOperationQueue *arrivalsQueue = [[NSOperationQueue alloc] init];
+        
+        [NSURLConnection sendAsynchronousRequest:urlRequest
+                                           queue:arrivalsQueue
+                               completionHandler:^(NSURLResponse *res, NSData *data, NSError *error) {
+                                   if([data length] > 0 && error == nil) {
+
+                                       NSLog(@"res: %@ error: %@", res, error);
+                                       NSMutableArray *arrivals = [decoder mutableObjectWithData:data];
+                                       NSLog(@"decoded");
+                                       [stop setValue:arrivals forKey:@"Arrivals"];
+                                       NSLog(@"done set value");
+                                       NSLog(@"Arrivals: %@", arrivals);
+                                       [locationsTableView reloadData];
+
+                                   }
+                                   else if ([data length] == 0 && error == nil)
+                                   {
+                                       NSLog(@"Nothing was downloaded.");
+                                   }
+                                   else if (error != nil){
+                                       NSLog(@"Error = %@", error);
+                                   }
+
+                               }];
+    }
+    
+    
+    NSLog(@"done reloaded data");
+    
+}
+
 - (void)connection:(NSURLConnection *)conn didReceiveData:(NSData *)data
 {
     if (conn == nearbyConnection)
@@ -179,18 +226,18 @@
         JSONDecoder *decoder = [[JSONDecoder alloc] initWithParseOptions:JKParseOptionStrict];
         
         if (stops == nil)
-            stops = [[NSArray alloc] init];
+            stops = [[NSMutableArray alloc] init];
         if (nearbyData != nil && [nearbyData length] > 0)
         {
             //        NSLog(@"Array of Stops: %@", stops);
-            stops = [decoder objectWithData:nearbyData];
+            stops = [decoder mutableObjectWithData:nearbyData];
+            
             [locationsTableView reloadData];
             [self stopRotating];
+            [self fetchArrivalTimes];
         }
 
     }
-    
-
 }
 
 - (void)connection:(NSURLConnection *)conn DidFailWithError:(NSError *)err
@@ -365,8 +412,17 @@
     arrivalTime.nuiClass = @"arrivalTime";
 
     routeName.text = [NSString stringWithFormat:@"%@", [item objectForKey:@"RouteName"]];
-    arrivalTime.text = [NSString stringWithFormat:@"%@ min", [item objectForKey:@"Distance"]];
-
+    
+    NSString *arrivalString = @"";
+    for (NSDictionary *arrival in [[item objectForKey:@"Arrivals"] objectForKey:@"Predictions"])
+    {
+        if (arrival != nil){
+            NSLog(@"Arrival: %@", [arrival objectForKey:@"Minutes"]);
+            arrivalString = [NSString stringWithFormat:@"%@ %@minutes", arrivalString, [arrival objectForKey:@"Minutes"]];
+        }
+    }
+    
+    arrivalTime.text = arrivalString;
     return  cell;
    
 }

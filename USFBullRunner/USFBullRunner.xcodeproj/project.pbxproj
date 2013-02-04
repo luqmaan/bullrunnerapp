@@ -24,6 +24,7 @@
 		C1DBC82D16BB5E0D0011A89A /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1DBC82B16BB5E0D0011A89A /* MainStoryboard.storyboard */; };
 		C1DBC83016BB5E0D0011A89A /* CRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1DBC82F16BB5E0D0011A89A /* CRViewController.m */; };
 		C1EDF9BE16BF25E100BBF336 /* CRArrivalsForStop.m in Sources */ = {isa = PBXBuildFile; fileRef = C1EDF9BD16BF25E100BBF336 /* CRArrivalsForStop.m */; };
+		C1EDF9C016BF2D0100BBF336 /* Data in Resources */ = {isa = PBXBuildFile; fileRef = C1EDF9BF16BF2D0100BBF336 /* Data */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		C1DBC83616BB5E8D0011A89A /* USFBullRunner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = USFBullRunner.entitlements; sourceTree = "<group>"; };
 		C1EDF9BC16BF25E100BBF336 /* CRArrivalsForStop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRArrivalsForStop.h; sourceTree = "<group>"; };
 		C1EDF9BD16BF25E100BBF336 /* CRArrivalsForStop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRArrivalsForStop.m; sourceTree = "<group>"; };
+		C1EDF9BF16BF2D0100BBF336 /* Data */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Data; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 		C1DBC81916BB5E0C0011A89A /* USFBullRunner */ = {
 			isa = PBXGroup;
 			children = (
+				C1EDF9BF16BF2D0100BBF336 /* Data */,
 				C1994C0416BD822200716491 /* Styles */,
 				C1DBC83616BB5E8D0011A89A /* USFBullRunner.entitlements */,
 				C1DBC82216BB5E0C0011A89A /* CRAppDelegate.h */,
@@ -194,6 +197,7 @@
 				C1DBC82A16BB5E0D0011A89A /* Default-568h@2x.png in Resources */,
 				C1DBC82D16BB5E0D0011A89A /* MainStoryboard.storyboard in Resources */,
 				C1994C0516BD822200716491 /* Styles in Resources */,
+				C1EDF9C016BF2D0100BBF336 /* Data in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,10 +19,11 @@
 @interface CRViewController : UITableViewController <CLLocationManagerDelegate>
 
 @property NSURLConnection *nearbyConnection;
+@property NSURLConnection *arrivalsConnection;
 @property NSMutableData *nearbyData;
 @property NSDictionary *routes;
 @property CLLocationManager *locationManager;
-@property NSArray *stops;
+@property NSMutableArray *stops;
 @property NSMutableDictionary *uniqueStops;
         /* used for the sections in the tableview.
             uniqueStops: {
