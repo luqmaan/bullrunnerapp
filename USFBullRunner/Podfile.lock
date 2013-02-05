@@ -1,13 +1,16 @@
 
 PODS:
+- CHDataStructures (0.0.1)
 - JSONKit (1.5pre)
 - NUI (0.2.5)
 
 DEPENDENCIES:
+- CHDataStructures
 - JSONKit
 - NUI
 
 SPEC CHECKSUMS:
+  CHDataStructures: 6d1a20884af7b54605f0a8bc0b51d15abec64eb2
   JSONKit: 3d4708953ea7ae399a49777372d8b060a43ddd27
   NUI: 5a78f196ad14a4027ae842ca27de085576dc77c6
 

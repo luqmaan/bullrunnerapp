@@ -13,6 +13,7 @@
 #import <NUI/UILabel+NUI.h>
 #import <QuartzCore/QuartzCore.h> 
 #import "CRArrivalsForStop.h"
+#import <CHDataStructures/CHOrderedDictionary.h>
 
 #define DEGREES_TO_RADIANS(x) (M_PI * x / 180.0)
 
@@ -24,18 +25,17 @@
 @property NSDictionary *routes;
 @property CLLocationManager *locationManager;
 @property NSMutableArray *stops;
-@property NSMutableDictionary *uniqueStops;
-        /* used for the sections in the tableview.
-            uniqueStops: {
-                "index":["Maple","Holly","MSC"], // position in the uniqueStops dictionary, used for searchign with numberOfRowsInSection:(NSInteger)section
-                "Maple":3, // (number of rows in section, aka buses arriving to this stop)
-                "Holly":3,
-                "MSC":5
-             }
-         */
+@property CHOrderedDictionary *uniqueStops;
+/* used for the sections in the tableview.
+    uniqueStops: {
+        "Maple":3, // (number of rows in section, aka buses arriving to this stop)
+        "Holly":3,
+        "MSC":5
+     }
+ */
 @property UIBarButtonItem *refreshBarBtn;
 @property UIButton *refreshBtn;
-
+@property UILabel *arrivalTimeLabel;
 
 @property (strong, nonatomic) IBOutlet UITableView *locationsTableView;
 @property (weak, nonatomic) IBOutlet UINavigationItem *navBar;

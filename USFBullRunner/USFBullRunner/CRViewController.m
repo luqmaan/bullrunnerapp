@@ -21,6 +21,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+    NSLog(@"View Did Load");
+    
     [self initViews];
     [self startStandardUpdates];
     [self fetchNearbyStops];
@@ -303,9 +305,7 @@
         // init the dictionary
         uniqueStops = nil; // prevent duplicate cells each time the tableisreloaded
         if (uniqueStops == nil) {
-            uniqueStops = [[NSMutableDictionary alloc] init];
-            [uniqueStops setObject:[[NSMutableArray alloc] init]
-                            forKey:@"index"];
+            uniqueStops = [[CHOrderedDictionary alloc] init];
         }
         // loop through the stops returned by the api
         [stops enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -317,9 +317,6 @@
             if (numArrivals == nil){
                 [uniqueStops setObject:[NSNumber numberWithInt:1]
                                 forKey:stopName];
-                NSMutableArray *index = [uniqueStops objectForKey:@"index"];
-                [index addObject:stopName];
-                [uniqueStops setObject:index forKey:@"index"];
             }
             // otherwise increment the number of buses arriving at the stop
             else {
@@ -328,7 +325,7 @@
             }
             
         }];
-        return [uniqueStops count] - 1;
+        return [uniqueStops count];
     }
     else return 0;
 }
@@ -336,11 +333,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (uniqueStops != nil)
     {
-        NSString *index = [uniqueStops objectForKey:@"index"][section];
-        NSNumber *rows = [uniqueStops objectForKey:index];
-        
-//        NSLog(@"numberOfRowsInSection, uniqueStops: %@", uniqueStops);
-        return rows.integerValue;
+        NSString *key = [uniqueStops keyAtIndex:section];
+        NSNumber *numRows = [uniqueStops objectForKey:key];
+        NSLog(@"section# %d key: %@ sectionsInRow: %@", section, key, numRows);
+        return numRows.integerValue;
     }
     else return 0;
 }
@@ -378,7 +374,7 @@
     
     if (uniqueStops != nil)
     {
-        label.text = [uniqueStops objectForKey:@"index"][section];
+        label.text = [uniqueStops keyAtIndex:section];
     }
     else
     {        
@@ -392,10 +388,19 @@
 
 - (NSDictionary *)itemAtIndexPath:(NSIndexPath *)indexPath
 {
+    int numRowsBeforeThisSection = 0;
     
-//    NSLog(@"stopsLength:%lu indexPath.row:%ld indexPath.section: %ld", (unsigned long)[stops count], (long)indexPath.row, (long)indexPath.section);
+    for (int i = 0; i < indexPath.section - 1; i++)
+    {
+        NSNumber *numRows = [uniqueStops objectForKey:[uniqueStops keyAtIndex:i]];
+        numRowsBeforeThisSection += numRows.integerValue;
+    }
     
-    return [[NSDictionary alloc] init];
+    int index = numRowsBeforeThisSection + indexPath.row;
+    
+    NSDictionary *item = [stops objectAtIndex:index];
+    
+    return item;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -412,23 +417,34 @@
     NSDictionary *item = [self itemAtIndexPath:indexPath];
     NSLog(@"item: %@", item);
 
-    UILabel *routeName = (UILabel *)[cell viewWithTag:0];
+    UILabel *label = (UILabel *)[cell viewWithTag:0];
     
-    routeName.nuiClass = @"routeName";
+    label.nuiClass = @"routeName";
 
-    routeName.text = [NSString stringWithFormat:@"%@", [item objectForKey:@"RouteName"]];
+    label.text = [NSString stringWithFormat:@"%@", [item objectForKey:@"RouteName"]];
     
-    int numLabels = 0;
+    int numLabels = 1;
+    
+//    UIView *arrivalsView = [[UIView alloc] init];
+//    arrivalsView.opaque = YES;
     
     for (NSDictionary *arrival in [[item objectForKey:@"Arrivals"] objectForKey:@"Predictions"])
     {
-        if (arrival != nil)
+        if (arrival != nil && numLabels <= 4)
         {
-            [cell addSubview:[self labelForTime:[arrival objectForKey:@"Minutes"]
-                                    AndPosition:numLabels]];
+            label = (UILabel *)[cell viewWithTag:numLabels];
+            label.textColor = [UIColor colorWithRed:0.133 green:0.133 blue:0.133 alpha:1];
+            label.backgroundColor = [UIColor colorWithRed:0.553 green:0.851 blue:0.749 alpha:1];
+            label.layer.cornerRadius = 8;
+            label.text = [NSString stringWithFormat:@"%@m", [arrival objectForKey:@"Minutes"]];
+            
+//            [arrivalsView addSubview:[self labelForTime:[arrival objectForKey:@"Minutes"]
+//                                            AndPosition:numLabels]];
             numLabels++;
         }
     }
+//    
+//    [cell addSubview:arrivalsView];
     
     return  cell;
    
@@ -445,6 +461,7 @@
     arrivalTime.layer.cornerRadius = 8;
     arrivalTime.textAlignment = UITextAlignmentCenter;
     arrivalTime.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
+    arrivalTime.opaque = YES;
     
     NSString *arrivalString = [NSString stringWithFormat:@"%@m", time];
     arrivalTime.text = arrivalString;
