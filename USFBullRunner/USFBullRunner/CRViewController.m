@@ -56,6 +56,8 @@
     
     CALayer *layer = refreshBtn.layer;
     
+    NSLog(@"%@", layer);
+    
     CFTimeInterval pausedTime = [layer timeOffset];
     layer.speed = 1.0;
     layer.timeOffset = 0.0;
@@ -465,6 +467,9 @@
     
     NSString *arrivalString = [NSString stringWithFormat:@"%@m", time];
     arrivalTime.text = arrivalString;
+    
+    int a = 0;
+    
     
     NSLog(@"ArrivalTimeFrame: %@", NSStringFromCGRect(arrivalTime.frame));
     
