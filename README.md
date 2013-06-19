@@ -3,7 +3,7 @@ lé BullRunner
 
 An iPhone app for the [USF BullRunner](http://usfbullrunner.com/). Determines your location and automatically displays nearby stops and arrival times. The official mobile site was too slow to use several times a day, so I built this.
 
-[](https://raw.github.com/createch/bullrunnerapp/master/screenshot-short.png)
+![](https://raw.github.com/createch/bullrunnerapp/master/screenshot-short.png)
 
 Libraries used:
 
@@ -14,4 +14,4 @@ Libraries used:
 - CoreLocation, QuartzCore for normal stuff (like fetching location data and animations)
 
 
-*Yes I know the spelling of lé is incorrect. It looks this way, though.*
+*Yes I know the spelling of lé is incorrect. It looks better this way, though.*
